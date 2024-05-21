@@ -5,4 +5,5 @@ edition = "2021"
 
 [dependencies]
 ash = "0.38"
+color-eyre = { version = "0.6", default-features = false }
 color-print = "0.3"

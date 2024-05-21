@@ -1,7 +1,8 @@
-use color_print::cprintln;
-
 pub mod cpu;
 pub mod gpu;
+
+use color_eyre::Result;
+use color_print::cprintln;
 
 /// A widget is a component that provides information about a specific aspect of the system.
 ///
@@ -11,7 +12,7 @@ pub trait Widget {
 	/// Get all nuggets of information provided by this widget.
 	///
 	/// This is usually an expensive call, as widgets do not necessarily need to cache their information.
-	fn nuggets(&self) -> Vec<Nugget>;
+	fn nuggets(&self) -> Result<Vec<Nugget>>;
 }
 
 /// A name-value pairing for a subunit of a [Widget]. Named this way because it's a nugget of information :)
@@ -47,8 +48,15 @@ impl WidgetPrinter {
 	}
 
 	/// Print all registered widgets to stdout.
-	pub fn print(&self) {
-		let nuggets: Vec<Nugget> = self.widgets.iter().flat_map(|widget| widget.nuggets()).collect();
+	pub fn print(&self) -> Result<()> {
+		let nuggets = {
+			let mut nuggets = Vec::new();
+			for widget in &self.widgets {
+				nuggets.extend(widget.nuggets()?);
+			}
+			nuggets
+		};
+
 		let longest_name = nuggets.iter().map(|nugget| nugget.name.len()).max().unwrap_or(0);
 		for nugget in nuggets {
 			cprintln!(
@@ -58,5 +66,7 @@ impl WidgetPrinter {
 				nugget.value
 			);
 		}
+
+		Ok(())
 	}
 }

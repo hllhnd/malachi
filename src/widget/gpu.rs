@@ -3,6 +3,7 @@ use std::mem::transmute;
 use ash::vk;
 use ash::vk::InstanceCreateInfo;
 use ash::Entry;
+use color_eyre::Result;
 
 use super::Nugget;
 use super::Widget;
@@ -12,11 +13,11 @@ use super::Widget;
 pub struct GpuInfo;
 
 impl Widget for GpuInfo {
-	fn nuggets(&self) -> Vec<Nugget> {
-		let entry = unsafe { Entry::load() }.unwrap();
+	fn nuggets(&self) -> Result<Vec<Nugget>> {
+		let entry = unsafe { Entry::load() }?;
 		let create_info = InstanceCreateInfo::default();
-		let instance = unsafe { entry.create_instance(&create_info, None) }.unwrap();
-		let physical_devices = unsafe { instance.enumerate_physical_devices() }.unwrap();
+		let instance = unsafe { entry.create_instance(&create_info, None) }?;
+		let physical_devices = unsafe { instance.enumerate_physical_devices() }?;
 
 		let mut nuggets = Vec::new();
 		for device in physical_devices {
@@ -32,6 +33,6 @@ impl Widget for GpuInfo {
 			nuggets.push(Nugget::new("GPU", format!("{model} (Vulkan {api_ver})")));
 		}
 
-		nuggets
+		Ok(nuggets)
 	}
 }

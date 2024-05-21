@@ -1,10 +1,17 @@
 mod widget;
 
+use color_eyre::Result;
+use widget::cpu::CpuModel;
+use widget::gpu::GpuInfo;
 use widget::WidgetPrinter;
 
-fn main() {
+fn main() -> Result<()> {
+	color_eyre::install()?;
+
 	let mut wp = WidgetPrinter::new();
-	wp.add_widget(Box::new(widget::cpu::CpuModel));
-	wp.add_widget(Box::new(widget::gpu::GpuInfo));
-	wp.print();
+	wp.add_widget(Box::new(CpuModel));
+	wp.add_widget(Box::new(GpuInfo));
+	wp.print()?;
+
+	Ok(())
 }
