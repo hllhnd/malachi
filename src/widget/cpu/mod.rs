@@ -6,6 +6,7 @@ use super::Widget;
 #[cfg(target_arch = "x86_64")]
 mod x86;
 
+/// A widget that displays information about the CPU.
 pub struct CpuModel;
 
 impl CpuModel {

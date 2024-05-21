@@ -7,6 +7,8 @@ use ash::Entry;
 use super::Nugget;
 use super::Widget;
 
+/// A widget that displays information about the GPU. So far it displays the model and the max supported Vulkan API
+/// version.
 pub struct GpuInfo;
 
 impl Widget for GpuInfo {
