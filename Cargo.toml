@@ -1,0 +1,8 @@
+[package]
+name = "malachi"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ash = "0.38"
+color-print = "0.3"

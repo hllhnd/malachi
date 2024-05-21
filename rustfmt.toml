@@ -1,0 +1,25 @@
+edition                      = "2021"
+version                      = "Two"
+unstable_features            = true
+error_on_line_overflow       = true
+error_on_unformatted         = true
+
+max_width                    = 120
+comment_width                = 120
+enum_discrim_align_threshold = 120
+struct_field_align_threshold = 120
+
+group_imports                = "StdExternalCrate"
+hex_literal_case             = "Upper"
+imports_granularity          = "Item"
+newline_style                = "Unix"
+combine_control_expr         = false
+format_macro_bodies          = true
+format_macro_matchers        = true
+hard_tabs                    = true
+match_arm_blocks             = true
+match_block_trailing_comma   = true
+normalize_comments           = true
+reorder_impl_items           = true
+struct_lit_single_line       = true
+wrap_comments                = true
