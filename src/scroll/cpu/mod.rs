@@ -5,10 +5,10 @@ use std::fs::read_to_string;
 
 use color_eyre::Result;
 
-use super::Nugget;
-use super::Widget;
+use super::Scroll;
+use super::Spell;
 
-/// A widget that displays information about the CPU.
+/// A scroll that displays information about the CPU.
 pub struct CpuModel;
 
 impl CpuModel {
@@ -28,9 +28,9 @@ impl CpuModel {
 	}
 }
 
-impl Widget for CpuModel {
-	fn nuggets(&self) -> Result<Vec<Nugget>> {
-		Ok(vec![Nugget::new(
+impl Scroll for CpuModel {
+	fn spells(&self) -> Result<Vec<Spell>> {
+		Ok(vec![Spell::new(
 			"CPU",
 			format!(
 				"{} @ {:.2} GHz",
